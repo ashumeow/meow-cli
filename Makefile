@@ -2,8 +2,8 @@ PREFIX := /c/
 VERSION := 1.0.0
 
 deb:
-	mkdir -p target/build$(PREFIX)/bin
-	cp bin/* target/build$(PREFIX)/bin
+	mkdir -p target/build$(PREFIX)/
+	cp /* target/build$(PREFIX)/
 	fpm -p target -C target/build -s dir -t deb -n meow-cli -v $(VERSION) -a all -d curl .
 
 clean:
