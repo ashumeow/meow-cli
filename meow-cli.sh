@@ -11,27 +11,27 @@ Options:
 # script=$(readlink -f "$0")
 dir=$(dirname "$script")
 
-msg_success() {
-	msg "$1" "Ok" '\e[1;32m'
+function success {
+	echo "$1" "Ok" '\e[1;32m'
 }
 
-msg_info() {
-	msg "$1" "Info" '\e[1;34m'
+function info {
+	echo "$1" "Info" '\e[1;34m'
 }
 
-msg_warning() {
-	msg "$1" "Warn" '\e[1;33m'
+function warning {
+	echo "$1" "Warn" '\e[1;33m'
 }
 
-msg_error() {
-	msg "$1" "Error" '\e[1;31m'
+function error {
+	echo "$1" "Error" '\e[1;31m'
 }
 
-msg_debug() {
+function debug {
 	return 1
 }
 
-msg() {
+function echo {
 	local message="$1"
 
 	if [[ -n "$2" ]]; then
@@ -45,8 +45,8 @@ msg() {
 	fi
 }
 
-start() {
-	msg_info "starting..."	
+function start {
+	info "starting..."	
 
 	for service in ${!services[*]}
 	do
@@ -63,21 +63,21 @@ start() {
 			started=$(ps ax | grep -v grep | grep "${!service}")
 
 			if [ -n "${started}" ]; then
-				msg_success "${!service} started"
+				success "${!service} started"
 			else
-				msg_error "${!service} not started"
-				#msg_debug "${result}"
+				error "${!service} not started"
+				#debug "${result}"
 			fi
 		else
-			msg_success "${!name} reloaded"
+			success "${!name} reloaded"
 		fi
 	done
 
-	msg_info "started"
+	info "started"
 }
 
-stop() {
-	msg_info "stopping..."	
+function stop {
+	info "stopping..."	
 
 	for service in ${!services[*]}
 	do
@@ -95,21 +95,21 @@ stop() {
 			started=$(ps ax | grep -v grep | grep "${!service}")
 
 			if [ -n "${started}" ]; then
-				msg_error "${!service} not stopped"
+				error "${!service} not stopped"
 				echo "${result}"
 			else
-				msg_success "${!service} stopped"
+				success "${!service} stopped"
 			fi
 		else
-			msg_success "${!name} reloaded"
+			success "${!name} reloaded"
 		fi
 	done
 
-	msg_info "stopped"	
+	info "stopped"	
 }
 
 if [ "$(id -u)" != "0" ]; then
-	msg_error "This is a Linux thingy... Don't try to crack sudo!"
+	error "This is a Linux thingy... Don't try to crack sudo!"
 else
 	. $dir/services
 
@@ -125,7 +125,7 @@ else
 			start
 		;;
 		*)
-			msg "Usage: rewned {start|stop|restart}"
+			echo "Usage: rewned {start|stop|restart}"
 		;;
 	esac
 fi
