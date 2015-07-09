@@ -14,5 +14,3 @@ install:
 
 uninstall:
 	rm $(DESTDIR)$(PREFIX)/meow-cli
-
-.PHONY: deb clean install uninstall
