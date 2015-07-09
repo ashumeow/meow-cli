@@ -12,26 +12,26 @@ Options:
 dir=$(dirname "$script")
 
 function success {
-	echo "$1" "Ok" '\e[1;32m'
+	meow "$1" "Ok" '\e[1;32m'
 }
 
 function info {
-	echo "$1" "Info" '\e[1;34m'
+	meow "$1" "Info" '\e[1;34m'
 }
 
 function warning {
-	echo "$1" "Warn" '\e[1;33m'
+	meow "$1" "Warn" '\e[1;33m'
 }
 
 function error {
-	echo "$1" "Error" '\e[1;31m'
+	meow "$1" "Error" '\e[1;31m'
 }
 
 function debug {
 	return 1
 }
 
-function echo {
+function meow {
 	local message="$1"
 
 	if [[ -n "$2" ]]; then
@@ -39,9 +39,9 @@ function echo {
 		local color="$3"
 		local nc='\e[0m'
 		local tab=$'\t'
-		echo -e "[${color}${token}${nc}]${tab} $message${nc}"
+		meow -e "[${color}${token}${nc}]${tab} $message${nc}"
 	else
-		echo "$message"
+		meow "$message"
 	fi
 }
 
@@ -96,7 +96,7 @@ function stop {
 
 			if [ -n "${started}" ]; then
 				error "${!service} not stopped"
-				echo "${result}"
+				meow "${result}"
 			else
 				success "${!service} stopped"
 			fi
@@ -125,7 +125,7 @@ else
 			start
 		;;
 		*)
-			echo "Usage: rewned {start|stop|restart}"
+			meow "Usage: rewned {start|stop|restart}"
 		;;
 	esac
 fi
