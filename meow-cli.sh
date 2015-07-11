@@ -1,7 +1,7 @@
 NAME=meow-cli
 VERSION=1.0.0
 
-function main {
+main() {
   local help=\
 "Usage: $NAME [options] <command> [<arguments>...]
 Options:
@@ -11,27 +11,27 @@ Options:
 # script=$(readlink -f "$0")
 dir=$(dirname "$script")
 
-function success {
+success() {
 	meow "$1" "Ok" '\e[1;32m'
 }
 
-function info {
+info() {
 	meow "$1" "Info" '\e[1;34m'
 }
 
-function warning {
+warning() {
 	meow "$1" "Warn" '\e[1;33m'
 }
 
-function error {
+error() {
 	meow "$1" "Error" '\e[1;31m'
 }
 
-function debug {
+debug() {
 	return 1
 }
 
-function meow {
+meow() {
 	local message="$1"
 
 	if [[ -n "$2" ]]; then
@@ -45,7 +45,7 @@ function meow {
 	fi
 }
 
-function start {
+start() {
 	info "starting..."	
 
 	for service in ${!services[*]}
@@ -76,7 +76,7 @@ function start {
 	info "started"
 }
 
-function stop {
+stop() {
 	info "stopping..."	
 
 	for service in ${!services[*]}
