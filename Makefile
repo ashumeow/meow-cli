@@ -1,10 +1,10 @@
-PREFIX := /c/
-VERSION := 1.0.0
+PREFIX = /d/meow-cli/
+VERSION = 1.0.0
 
-deb:
+win:
 	mkdir -p target/build$(PREFIX)/
 	cp /* target/build$(PREFIX)/
-	fpm -p target -C target/build -s dir -t deb -n meow-cli -v $(VERSION) -a all -d curl .
+	# fpm -p target -C target/build -s dir -t deb -n meow-cli -v $(VERSION) -a all -d curl .
 
 clean:
 	rm -rf target
@@ -14,3 +14,6 @@ install:
 
 uninstall:
 	rm $(DESTDIR)$(PREFIX)/meow-cli
+
+main:
+	meow-cli --version
