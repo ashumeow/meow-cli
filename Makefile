@@ -1,3 +1,6 @@
+SED = sed
+TAR = tar
+GIT = git
 PREFIX = /d/meow-cli/
 VERSION = 1.0.0
 
